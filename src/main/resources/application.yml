@@ -3,10 +3,9 @@ spring:
     name: jeopardy-server
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/jeopardy
-    username: jeopardy_user
-    password: jeopardy_pass
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
 
   jpa:
     hibernate:
