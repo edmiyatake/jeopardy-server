@@ -81,28 +81,21 @@ class QuestionRepositoryTest extends AbstractIntegrationTest {
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getPointValue()).isEqualTo(200);
     }
-
     @Test
-    void findDistinctCategoryBy_returnsUniqueCategories() {
-        // Add a second SCIENCE question — should not duplicate the category
+    void findDistinctCategories_returnsUniqueCategories() {
+        // V2 seeds 6 categories — confirm our inserted ones appear in the results
         questionRepository.save(Question.builder()
-                .category("SCIENCE")
-                .clue("Another science clue")
-                .answer("What is gravity?")
+                .category("UNIQUE_TEST_CATEGORY")
+                .clue("Test clue")
+                .answer("Test answer")
                 .difficulty(QuestionDifficulty.FOUR_HUNDRED)
                 .pointValue(400)
-                .build());
-        questionRepository.save(Question.builder()
-                .category("HISTORY")
-                .clue("Year of the French Revolution")
-                .answer("What is 1789?")
-                .difficulty(QuestionDifficulty.TWO_HUNDRED)
-                .pointValue(200)
                 .build());
 
         List<String> categories = questionRepository.findDistinctCategories();
 
-        assertThat(categories).containsExactlyInAnyOrder("SCIENCE", "HISTORY");
+        assertThat(categories).contains("UNIQUE_TEST_CATEGORY");
+        assertThat(categories).doesNotHaveDuplicates();
     }
 
     @Test
