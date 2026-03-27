@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Integration tests for {@link GameRepository}.
  *
- * <p>Covers room-code lookups, status filtering, and the eager-fetch query
+ * Covers room-code lookups, status filtering, and the eager-fetch query
  * variants that avoid N+1 issues when loading player rosters or question boards.
  */
 class GameRepositoryTest extends AbstractIntegrationTest {
