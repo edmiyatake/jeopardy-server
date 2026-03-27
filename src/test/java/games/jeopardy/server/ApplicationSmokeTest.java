@@ -94,7 +94,7 @@ class ApplicationSmokeTest {
         // Also confirms each repository can execute a SELECT without errors.
         assertThatNoException().isThrownBy(() -> {
             assertThat(playerRepository.count()).isZero();
-            assertThat(questionRepository.count()).isZero();
+            assertThat(questionRepository.count()).isEqualTo(30L);
             assertThat(gameRepository.count()).isZero();
             assertThat(gamePlayerRepository.count()).isZero();
             assertThat(gameQuestionRepository.count()).isZero();

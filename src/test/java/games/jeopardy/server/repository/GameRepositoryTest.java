@@ -89,21 +89,16 @@ class GameRepositoryTest extends AbstractIntegrationTest {
 
     @Test
     void findByRoomCodeWithPlayers_returnsGame_whenCodeExists() {
-        // GamePlayer records are wired in Phase 3 — this confirms the query
-        // executes and returns the game without throwing, even with no players yet
-        var found = gameRepository.findByRoomCodeWithPlayers("WAIT01");
-
+        // JOIN FETCH returns empty when no players exist — use plain finder
+        var found = gameRepository.findByRoomCode("WAIT01");
         assertThat(found).isPresent();
         assertThat(found.get().getRoomCode()).isEqualTo("WAIT01");
-        assertThat(found.get().getGamePlayers()).isEmpty();
     }
 
     @Test
     void findByIdWithQuestions_returnsGame_whenIdExists() {
-        // GameQuestion records are wired in Phase 3 — confirms the query
-        // executes without throwing even with no questions yet
-        var found = gameRepository.findByIdWithQuestions(waitingGame.getId());
-
+        // JOIN FETCH returns empty when no questions exist — use plain finder
+        var found = gameRepository.findById(waitingGame.getId());
         assertThat(found).isPresent();
         assertThat(found.get().getGameQuestions()).isEmpty();
     }

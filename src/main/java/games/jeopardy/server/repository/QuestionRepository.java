@@ -59,7 +59,8 @@ public interface QuestionRepository extends JpaRepository<Question, UUID> {
      * Used by the board-building service to present category choices to the host
      * before a game starts.
      */
-    List<String> findDistinctCategoryBy();
+    @Query("SELECT DISTINCT q.category FROM Question q ORDER BY q.category")
+    List<String> findDistinctCategories();
 
     /**
      * Fetches all questions for the given categories, sorted by category name then

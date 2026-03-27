@@ -109,7 +109,7 @@ public interface GamePlayerRepository extends JpaRepository<GamePlayer, GamePlay
      * @param playerId the player whose score to adjust
      * @param delta    points to add (positive) or subtract (negative)
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("""
             UPDATE GamePlayer gp
             SET gp.score = gp.score + :delta

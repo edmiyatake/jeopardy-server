@@ -112,7 +112,7 @@ public interface GameQuestionRepository extends JpaRepository<GameQuestion, Game
      * @param answeredAt the timestamp of the response (use {@link Instant#now()})
      * @param wasCorrect {@code true} if the response matched the expected answer
      */
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("""
             UPDATE GameQuestion gq
             SET gq.isAnswered          = true,

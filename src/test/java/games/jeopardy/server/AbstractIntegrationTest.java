@@ -28,19 +28,16 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public abstract class AbstractIntegrationTest {
 
-    @Container
-    static final PostgreSQLContainer<?> POSTGRES =
-            new PostgreSQLContainer<>("postgres:16-alpine")
-                    .withDatabaseName("jeopardy_test")
-                    .withUsername("test")
-                    .withPassword("test");
+    static final PostgreSQLContainer<?> POSTGRES;
 
-    /**
-     * Feeds the Testcontainers-assigned host/port/credentials into Spring's
-     * datasource properties at runtime, before the application context starts.
-     * This is necessary because the port is dynamic (chosen by Docker to avoid
-     * conflicts) and cannot be hardcoded in application-test.properties.
-     */
+    static {
+        POSTGRES = new PostgreSQLContainer<>("postgres:16-alpine")
+                .withDatabaseName("jeopardy_test")
+                .withUsername("test")
+                .withPassword("test");
+        POSTGRES.start(); // start once, shared across all test classes
+    }
+
     @DynamicPropertySource
     static void configureDataSource(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", POSTGRES::getJdbcUrl);
