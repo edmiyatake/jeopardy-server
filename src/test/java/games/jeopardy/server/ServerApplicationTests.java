@@ -1,6 +1,16 @@
+package games.jeopardy.server;
+
+import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
 @SpringBootTest
 @Testcontainers
-class ServerApplicationTests {
+public class ServerApplicationTests {
 
 	@Container
 	static final PostgreSQLContainer<?> POSTGRES =
@@ -17,6 +27,6 @@ class ServerApplicationTests {
 	}
 
 	@Test
-	void contextLoads() {
+    public void contextLoads() {
 	}
 }
